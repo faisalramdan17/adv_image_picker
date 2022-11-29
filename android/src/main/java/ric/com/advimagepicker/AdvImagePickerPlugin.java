@@ -88,10 +88,21 @@ public class AdvImagePickerPlugin implements FlutterPlugin, ActivityAware, Metho
     public void onMethodCall(MethodCall call, @Nullable final Result result) {
         switch (call.method) {
             case "getPermission":
+            String[] permission33 = {
+                        Manifest.permission.CAMERA,
+                        Manifest.permission.READ_MEDIA_IMAGES
+                        };
+
+            String[] permission32 = {
+                        Manifest.permission.CAMERA,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE, 
+                        Manifest.permission.READ_EXTERNAL_STORAGE
+                        };
+
+                        if((Build.VERSION.SDK_INT >= 33))
+
                 Dexter.withActivity(activity)
-                        .withPermissions(Manifest.permission.CAMERA,  (Build.VERSION.SDK_INT >= 33)
-                                    ? Manifest.permission.READ_MEDIA_IMAGES
-                                    : {Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE})
+                        .withPermissions( (Build.VERSION.SDK_INT >= 33) ? permission33  : permission32)
                         .withListener(new MultiplePermissionsListener() {
                             @Override
                             public void onPermissionsChecked(MultiplePermissionsReport report) {
